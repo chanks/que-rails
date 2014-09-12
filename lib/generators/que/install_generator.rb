@@ -3,8 +3,8 @@ require 'rails/generators/migration'
 require 'active_record'
 
 module Que
-  class InstallGenerator < Rails::Generators::Base
-    include Rails::Generators::Migration
+  class InstallGenerator < ::Rails::Generators::Base
+    include ::Rails::Generators::Migration
 
     namespace 'que:install'
     self.source_paths << File.join(File.dirname(__FILE__), 'templates')
