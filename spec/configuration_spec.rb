@@ -8,4 +8,12 @@ describe "Que::Rails::Railtie" do
       end
     end
   end
+
+  it "should use ActiveRecord's DB connection" do
+    Bundler.with_clean_env do
+      Dir.chdir($fresh_app_path) do
+        `rails r 'puts Que.execute("SELECT 1 AS one")'`.strip.should == '{"one"=>1}'
+      end
+    end
+  end
 end
