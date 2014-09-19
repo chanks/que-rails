@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Que::Rails::Railtie" do
   it "should set Que's logger to the Rails logger" do
     Bundler.with_clean_env do
-      Dir.chdir($fresh_app_path) do
+      Dir.chdir($app_copy_path) do
         `rails r 'puts Que.logger == Rails.logger'`.strip.should == 'true'
       end
     end
@@ -11,7 +11,7 @@ describe "Que::Rails::Railtie" do
 
   it "should use ActiveRecord's DB connection" do
     Bundler.with_clean_env do
-      Dir.chdir($fresh_app_path) do
+      Dir.chdir($app_copy_path) do
         `rails r 'puts Que.execute("SELECT 1 AS one")'`.strip.should == '{"one"=>1}'
       end
     end
@@ -19,7 +19,7 @@ describe "Que::Rails::Railtie" do
 
   it "should leave Que off by default when run as rails runner" do
     Bundler.with_clean_env do
-      Dir.chdir($fresh_app_path) do
+      Dir.chdir($app_copy_path) do
         `rails r 'puts Que.mode.inspect'`.strip.should == ':off'
       end
     end
