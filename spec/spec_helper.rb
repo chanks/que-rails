@@ -1,6 +1,8 @@
+require 'support/helpers'
+
 puts "Testing Que's integration with #{`rails -v`}"
 
-$test_app_path  = "spec/tmp/que_rails_test_app"
+$test_app_path = "spec/tmp/que_rails_test_app"
 $app_copy_path = "spec/tmp/app_copy"
 
 FileUtils.rm_rf($test_app_path)
@@ -12,20 +14,14 @@ directory = File.dirname(__FILE__).split('/')[0..-2].join('/')
 # Skip bundle install until we add que-rails.
 `rails new #{$test_app_path} -B -d postgresql`
 
+append_to_file "#{$test_app_path}/Gemfile", "gem 'que-rails', :path => '#{directory}'"
 
-File.open("#{$test_app_path}/Gemfile", 'a') do |f|
-  f.puts "gem 'que-rails', :path => '#{directory}'"
-end
-
-
-Bundler.with_clean_env do
-  Dir.chdir($test_app_path) do
-    `bundle`
-    `rails generate que:install`
-    `rake db:drop`
-    `rake db:create`
-    `rake db:migrate`
-  end
+in_path $test_app_path do
+  `bundle`
+  `rails generate que:install`
+  `rake db:drop`
+  `rake db:create`
+  `rake db:migrate`
 end
 
 FileUtils.cp_r($test_app_path, $app_copy_path)
