@@ -16,4 +16,12 @@ describe "Que::Rails::Railtie" do
       end
     end
   end
+
+  it "should leave Que off by default when run as rails runner" do
+    Bundler.with_clean_env do
+      Dir.chdir($fresh_app_path) do
+        `rails r 'puts Que.mode.inspect'`.strip.should == ':off'
+      end
+    end
+  end
 end

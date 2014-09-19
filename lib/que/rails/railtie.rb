@@ -14,7 +14,7 @@ module Que
       initializer 'que.setup' do
         ::ActiveSupport.on_load :after_initialize do
           # Only start up the worker pool if running as a server.
-          Que.mode ||= :async if defined? ::Rails::Server
+          Que.mode ||= defined?(::Rails::Server) ? :async : :off
 
           at_exit do
             if Que.mode == :async
