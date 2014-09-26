@@ -31,7 +31,7 @@ namespace :que do
 
   desc "Migrate Que's job table to the most recent version (creating it if it doesn't exist)"
   task :migrate => :environment do
-    Que.migrate!
+    Que.migrate! :version => (ENV['QUE_MIGRATE_VERSION'] || Que::Migrations::CURRENT_VERSION).to_i
   end
 
   desc "Drop Que's job table"
