@@ -1,3 +1,7 @@
+require 'sequel'
+
+DB = Sequel.connect ENV['DATABASE_URL'] || "postgres:///que_rails_test_app_development"
+
 require 'support/helpers'
 
 puts "Testing Que's integration with #{`rails -v`}"
