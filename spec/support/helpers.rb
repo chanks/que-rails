@@ -6,6 +6,6 @@ def in_path(path, &block)
   Bundler.with_clean_env { Dir.chdir(path, &block) }
 end
 
-def run_in_app(ruby)
+def rails_runner(ruby)
   in_path($app_copy_path) { `rails r '#{ruby}'`.strip }
 end
