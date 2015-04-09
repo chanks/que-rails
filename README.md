@@ -1,4 +1,4 @@
-# que-rails
+# que-rails (Unreleased, do not use)
 
 `que-rails` contains assorted tools that integrate the [Que job queue](https://github.com/chanks/que) into a Rails application. It provides rake tasks and a railtie that handles spinning up the background worker pool.
 
